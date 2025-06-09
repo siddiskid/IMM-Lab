@@ -1,3 +1,15 @@
 .venv
 MRI
 MEG
+
+# Ignore everything in Gabor_MEG
+Gabor_MEG/*
+
+# But keep the p024_MEG_ENS_Gabor directory structure and Final folder
+!Gabor_MEG/Prepro/
+!Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/
+# Ignore everything inside p024_MEG_ENS_Gabor
+Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/*
+# But keep the Final folder and its contents
+!Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/Final/
+!Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/Final/**
