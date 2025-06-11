@@ -1,6 +1,7 @@
 .venv
 MRI
 MEG
+new_MRI
 
 # Ignore everything in Gabor_MEG
 Gabor_MEG/*
