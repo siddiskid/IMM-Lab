@@ -19,3 +19,15 @@ Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/*
 Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/Final/p024_GABOR_all_esss-1.fif
 Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/Final/p024_GABOR_all_esss.fif
 Gabor_MEG/Prepro/p024_MEG_ENS_Gabor/Final/p024_GABOR_erm_esss.fif
+
+!Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/
+# Ignore everything inside p030_MEG_ENS_Gabor
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/*
+# But keep the Final folder and its contents
+!Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/
+!Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/**
+
+# Explicitly ignore these two files, even though the rest of Final is tracked
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_all_esss-1.fif
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_all_esss.fif
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_erm_esss.fif
