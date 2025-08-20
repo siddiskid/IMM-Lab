@@ -44,6 +44,8 @@ Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/*
 Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_all_esss-1.fif
 Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_all_esss.fif
 Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/p030_GABOR_erm_esss.fif
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/Source_Level
+Gabor_MEG/Prepro/p030_MEG_ENS_Gabor/Final/Evoked
 
 !Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/
 # Ignore everything inside p031_MEG_ENS_Gabor
@@ -52,10 +54,22 @@ Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/*
 !Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/
 !Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/**
 
-# Explicitly ignore these two files, even though the rest of Final is tracked
+# Explicitly ignore these files, even though the rest of Final is tracked
 Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/p031_GABOR_all_esss-1.fif
 Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/p031_GABOR_all_esss.fif
 Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/p031_GABOR_erm_esss.fif
+Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/p031_GABOR_esss_ica_reject.fif
+Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/p031_GABOR_esss_ica_reject-1.fif
+Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/Source_Level
+Gabor_MEG/Prepro/p031_MEG_ENS_Gabor/Final/Evoked
+
+# Also ignore large .fif files in p018 folder
+Gabor_MEG/Prepro/p018_MEG_ENS_Gabor/Final/p018_GABOR_esss_ica_reject.fif
+Gabor_MEG/Prepro/p018_MEG_ENS_Gabor/Final/p018_GABOR_esss_ica_reject-1.fif
+
+# General rule for large .fif files
+*.fif
+
 
 !Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/
 # Ignore everything inside p035_MEG_ENS_Gabor
@@ -68,3 +82,7 @@ Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/*
 Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/Final/p035_GABOR_all_esss-1.fif
 Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/Final/p035_GABOR_all_esss.fif
 Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/Final/p035_GABOR_erm_esss.fif
+Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/Final/Source_Level
+Gabor_MEG/Prepro/p035_MEG_ENS_Gabor/Final/Evoked
+
+PSD_data
