@@ -1,6 +1,6 @@
 # Analysis Scripts Documentation
 
-This folder has 5 notebooks that handle the MEG and behavioral data analysis for our visual-motor learning study. Each notebook serves a specific purpose in the analysis pipeline.
+This folder contains 6 notebooks that handle different aspects of our MEG and behavioral data analysis for the visual-motor learning study. Here's what each one does and when you'd use it.
 
 ---
 
@@ -54,30 +54,41 @@ The notebook generates a lot of intermediate files and has some redundant plotti
 
 ---
 
-## 3. plotting_brain_activations.ipynb
-**What it does**: Makes nice brain plots from the MEG source data
+## 3. psd_figs.ipynb
+**What it does**: Analyzes power spectral density (PSD) from the MEG data and creates spectral plots
 
-**Data needed**:
-- Group-averaged morphed STCs from the previous notebook: 
-  - `../MEG/adult_morphed_averaged/VML_adult_morphed-averaged_DS_run X-stc.h5`
-  - `../MEG/child_morphed_averaged/VML_child_morphed-averaged_DS_run X-stc.h5`
-- fsaverage brain template files:
-  - `../MRI/fsaverage/bem/fsaverage-mixed-src.fif` (source space)
-  - `../MRI/fsaverage/mri/T1.mgz` (anatomical image)
+**Data needed**: 
+- Preprocessed PSD data in `../PSD_data/baseline_psds/` folder
+- Files like `el_baseline_motor_normalized_psd.npy` and `ll_baseline_cerebellum_normalized_psd_c.npy`
 
-This is a shorter notebook that focuses on visualization. It takes the morphed/averaged source data and converts it to standard neuroimaging formats that other tools can read.
+This notebook focuses on the frequency domain analysis of our MEG signals. Instead of looking at when brain activity happens (like the source analysis), this looks at what frequencies are present in the signal.
 
-The main things it does:
-- Converts MNE source estimates to NIfTI files (the standard brain imaging format)
-- Finds the peak activation locations and times
-- Makes orthogonal brain slice plots showing where activation is strongest
-- Plots time courses of activation at the peak voxels
+The main thing it does is compare power spectra between children and adults across different brain regions (motor cortex and cerebellum) and different learning phases (early vs late learning). 
 
-It's basically for quality checking and making figures. You can see if the morphing worked properly and get a sense of where and when brain activity is happening. The plots show brain slices (sagittal, coronal, axial) with activation overlaid on anatomical images.
+It uses FOOOF (Fitting Oscillations & One Over F) to separate periodic components (neural oscillations like alpha, beta waves) from the aperiodic background. This is important because raw power spectra are dominated by the 1/f background noise, which can mask interesting neural oscillations.
+
+The plots show frequency on the x-axis (1-90 Hz) and power on the y-axis, with separate panels for each brain region and condition. You can see if certain frequency bands are more prominent in one group vs the other, which might relate to different neural mechanisms of motor learning.
 
 ---
 
-## 4. stats-R.ipynb
+## 4. convert_to_nifti.ipynb
+**What it does**: Converts MNE source estimates to NIfTI format for use with other neuroimaging tools
+
+**Data needed**:
+- Group-averaged morphed STCs (from moprh_to_fsavg.ipynb)
+- Mixed source space file: `../MRI/fsaverage/bem/fsaverage-mixed-src.fif`
+
+This is essentially a format conversion utility. MNE-Python uses its own file formats for source estimates (.stc, .h5 files), but most other neuroimaging software expects NIfTI format (.nii.gz files). 
+
+For each source estimate, it finds the peak activation time and extracts a window around that peak (±20ms, so 41 time points total). Then it saves two versions:
+1. A 4D NIfTI with all time points (for looking at temporal dynamics)
+2. A 3D NIfTI with just the average across time points (for statistical analysis)
+
+The notebook also tracks file sizes and gives you summaries of what got converted. This is useful if you want to do group-level statistics in FSL, SPM, or other standard neuroimaging packages, or if you need to share data with collaborators who don't use MNE.
+
+---
+
+## 5. stats-R.ipynb
 **What it does**: Runs the main statistical tests in R (ANOVAs, post-hoc tests, Bayesian analysis)
 
 **Data needed**: Same as figures.ipynb
@@ -99,7 +110,7 @@ The notebook has some redundant cells that test slightly different ways of runni
 
 ---
 
-## 5. stats.ipynb  
+## 6. stats.ipynb  
 **What it does**: Python version of the stats - same analyses as the R notebook but in Python
 
 **Data needed**: Same .mat files as the other notebooks
@@ -118,17 +129,24 @@ Results should be nearly identical between the two approaches. I included multip
 ├── children_data/
 │   ├── VML_MEG_002_Final_Results.mat
 │   ├── VML_MEG_003_Final_Results.mat
-│   └── ...
+│   └── ... (behavioral data for all child participants)
 ├── adult_data/
 │   ├── VML_MEG_011_Final_Results.mat  
 │   ├── VML_MEG_012_Final_Results.mat
-│   └── ...
+│   └── ... (behavioral data for all adult participants)
+├── PSD_data/
+│   └── baseline_psds/
+│       ├── el_baseline_motor_normalized_psd.npy
+│       ├── ll_baseline_cerebellum_normalized_psd_c.npy
+│       └── ... (power spectral density data)
 ├── MRI/
 │   ├── vml_mri_002/bem/... (individual brain files)
 │   ├── vml_mri_003/bem/...
-│   └── fsaverage/... (template brain)
+│   └── fsaverage/... (template brain - gets created automatically)
 └── MEG/
     ├── vml_meg_002/... (individual MEG source files)
     ├── vml_meg_003/...
-    └── (group averaged folders get created)
+    └── (averaged folders get created by the morphing notebook)
 ```
+
+Each notebook is pretty self-contained, but the MEG ones depend on having run the morphing step first. The behavioral analysis notebooks can run independently as long as you have the .mat files with the right variable names.
